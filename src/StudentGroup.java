@@ -133,15 +133,29 @@ class StudentGroup implements StudentArrayOperation {
         }
         throw new IllegalArgumentException("Student not exist");
     }
+	
 	@Override
-	public void removeFromIndex(int index) {
-		// Add your implementation here
-	}
-
+	public void removeFromIndex(int index) throws IllegalArgumentException//tested
+    {
+        int len;
+        Student a;
+        if(index<0&&index>=students.length) 
+            throw new IllegalArgumentException(); 
+        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
+        for(int i=index+1;i<len;i++)
+            students[i]=null;
+    }
 	@Override
-	public void removeFromElement(Student student) {
-		// Add your implementation here
-	}
+	public void removeFromElement(Student student) throws IllegalArgumentException//tested
+    {
+        
+        for(int i=0;;i++){
+            if(students[i].equals(student)){
+                this.removeFromIndex(i);
+                return;
+            }
+        }
+    }
 
 	@Override
 	public void removeToIndex(int index) {
