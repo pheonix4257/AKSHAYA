@@ -186,180 +186,45 @@ class StudentGroup implements StudentArrayOperation {
         }
         
     }
-	public Student[] getByBirthDate(Date date) throws IllegalArgumentException //checked
-    {
-        int len,i,j,count=0;
-        Student a;
-        if(date==null) 
-            throw new IllegalArgumentException(); 
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getBirthDate().compareTo(date)<=1)
-                count++;
-        }
-        Student[] s=new Student[count]; 
-        count=0;
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getBirthDate().compareTo(date)<=1)
-                s[count++]=students[i];
-        }
-        return s;
-    }
-	public Student[] getBetweenBirthDates(Date firstDate, Date lastDate) throws IllegalArgumentException //checked
-    {
-        int len,i,j,count=0;
-        Student a;
-        if(firstDate==null||lastDate==null) 
-            throw new IllegalArgumentException(); 
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getBirthDate().compareTo(firstDate)>=0&&students[i].getBirthDate().compareTo(lastDate)<=0)
-                count++;
-        }
-        Student[] s=new Student[count]; 
-        count=0;
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getBirthDate().compareTo(firstDate)>=0&&students[i].getBirthDate().compareTo(lastDate)<=0)
-                s[count++]=students[i];
-        }
-        return s;
-    }
-	public Student[] getNearBirthDate(Date date, int days) throws IllegalArgumentException//checked
-    {
-        int len,i,j,count=0;
-        Student a;
-        if(date==null) 
-            throw new IllegalArgumentException(); 
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            if((students[i].getBirthDate()).compareTo(date)==0)
-                count++;
-            else
-            {
-                 Calendar calendar1 = new GregorianCalendar();
-                 Calendar calendar2 = new GregorianCalendar();
-                 calendar1.setTime(date);
-                 calendar2.setTime(students[i].getBirthDate());
-                 int year1 = calendar1.get(Calendar.YEAR);
-                 int year2 = calendar2.get(Calendar.YEAR);
-                 int month1 = calendar1.get(Calendar.MONTH);
-                 int month2 = calendar2.get(Calendar.MONTH);
-                 int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
-                 int day2 = calendar2.get(Calendar.DAY_OF_MONTH);
-                 if(year1==year2&&month1==month2&&day1>day2&&day1<=days+day2)
-                     count++;
-            }
-        }
-        Student[] s=new Student[count]; 
-        count=0;
-        for(i=0;i<len;i++)
-        {
-            
-            if((students[i].getBirthDate()).compareTo(date)==0)
-                 s[count++]=students[i];
-            else
-            {
-                 Calendar calendar1 = new GregorianCalendar();
-                 Calendar calendar2 = new GregorianCalendar();
-                 calendar1.setTime(date);
-                 calendar2.setTime(students[i].getBirthDate());
-                 int year1 = calendar1.get(Calendar.YEAR);
-                 int year2 = calendar2.get(Calendar.YEAR);
-                 int month1 = calendar1.get(Calendar.MONTH);
-                 int month2 = calendar2.get(Calendar.MONTH);
-                 int day1 = calendar1.get(Calendar.DAY_OF_MONTH);
-                 int day2 = calendar2.get(Calendar.DAY_OF_MONTH);
-                 if(year1==year2&&month1==month2&&day1>day2&&day1<=days+day2)
-                     s[count++]=students[i];
-            }
-        }
-        return s;
-    }
-	public int getCurrentAgeByDate(int indexOfStudent) throws IllegalArgumentException //checked
-    {
-            if(indexOfStudent==0) 
-            throw new IllegalArgumentException(); 
-            Date d=students[indexOfStudent].getBirthDate();
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(d);
-            int year = calendar.get(Calendar.YEAR);
-            return 2017-year;
-        
-    }
-	public Student[] getStudentsByAge(int age) //checked
-    {
-        
-        int len,i,j,count=0,max=-32768;
-        Student a;
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            Date date=students[i].getBirthDate();
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
-            int year = calendar.get(Calendar.YEAR);
-            if(2017-year==age)
-                count++;
-        }
-        Student[] s=new Student[count]; 
-        count=0;
-        for(i=0;i<len;i++)
-        {
-            Date date=students[i].getBirthDate();
-            Calendar calendar = new GregorianCalendar();
-            calendar.setTime(date);
-            int year = calendar.get(Calendar.YEAR);
-            if(2017-year==age)
-                s[count++]=students[i];
-        }
-        return s;
-        
-    }
-	public Student[] getStudentsWithMaxAvgMark() //checked
-    {
-        int len,i,j,count=0;
-        double max=-32768;
-        Student a;
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getAvgMark()>max)
-                max=students[i].getAvgMark();
-        }
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getAvgMark()==max)
-                count++;
-        }
-        Student[] s=new Student[count]; 
-        count=0;
-        for(i=0;i<len;i++)
-        {
-            if(students[i].getAvgMark()==max)
-                s[count++]=students[i];
-        }
-        return s;
-        
-    }
-	public Student getNextStudent(Student student) throws IllegalArgumentException//tested
-    {
-        if(student==null)
-           throw new IllegalArgumentException(); 
-        int len,i,j,count=0;
-        Student a;
-        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
-        for(i=0;i<len;i++)
-        {
-            if(students[i].equals(student))
-                return students[i+1];
-        }
-        a=null;
-        return a;
-    }
-    
+	@Override
+	public Student[] getByBirthDate(Date date) {
+		// Add your implementation here
+		return null;
+	}
+
+	@Override
+	public Student[] getBetweenBirthDates(Date firstDate, Date lastDate) {
+		// Add your implementation here
+		return null;
+	}
+
+	@Override
+	public Student[] getNearBirthDate(Date date, int days) {
+		// Add your implementation here
+		return null;
+	}
+
+	@Override
+	public int getCurrentAgeByDate(int indexOfStudent) {
+		// Add your implementation here
+		return 0;
+	}
+
+	@Override
+	public Student[] getStudentsByAge(int age) {
+		// Add your implementation here
+		return null;
+	}
+
+	@Override
+	public Student[] getStudentsWithMaxAvgMark() {
+		// Add your implementation here
+		return null;
+	}
+
+	@Override
+	public Student getNextStudent(Student student) {
+		// Add your implementation here
+		return null;
+	}
 } 
