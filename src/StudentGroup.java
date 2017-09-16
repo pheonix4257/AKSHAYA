@@ -60,18 +60,55 @@ public class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	public void addFirst(Student student) {
-		// Add your implementation here
+	@Override
+	public void addFirst(Student student) throws IllegalArgumentException{
+		if(student==null)
+           throw new IllegalArgumentException(); 
+        int i;
+		if(students.length==0)
+			students[0]=student;
+		else
+		{ 
+            Student a;
+            for(i=0;i<students.length&&(a=this.getStudent(i))!=null;i++);
+			for(;i>0;i--){
+				students[i]=students[i-1];
+            }
+			students[0]=student;
+		}
 	}
 
 	@Override
-	public void addLast(Student student) {
+	public void addLast(Student student) throws IllegalArgumentException{ //tested
 		// Add your implementation here
+        if(student==null)
+           throw new IllegalArgumentException(); 
+        int i;
+        Student a;
+        for(i=0;i<students.length&&(a=this.getStudent(i))!=null;i++);
+		this.setStudent(student, i);
 	}
 
 	@Override
-	public void add(Student student, int index) {
+	public void add(Student student, int index) throws IllegalArgumentException{
 		// Add your implementation here
+        if(student==null)
+           throw new IllegalArgumentException(); 
+        if(index<0&&index>=students.length) 
+            throw new IllegalArgumentException(); 
+        int len;
+        Student a;
+        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
+        if(index==0)
+            this.addFirst(student);
+        else if(index==len)
+            this.addLast(student);
+        else
+        {
+            for(int i=len;i!=index;i--)
+                students[i]=students[i-1];
+            this.setStudent(student,index);
+        }		
 	}
 
 	@Override
@@ -105,10 +142,23 @@ public class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	public void bubbleSort() {
-		// Add your implementation here
-	}
-
+	public void bubbleSort(){//tested
+        int len,i,j;
+        Student a;
+        for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
+        for(i=0;i<len-1;i++)
+        {
+            for(j=i+1;j<len;j++)
+            {
+                if(students[i].compareTo(students[j])>0){
+                    a=students[i];
+                    students[i]=students[j];
+                    students[j]=a;
+                }
+            }
+          } 
+        
+        }
 	@Override
 	public Student[] getByBirthDate(Date date) {
 		// Add your implementation here
