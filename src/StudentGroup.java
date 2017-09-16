@@ -20,33 +20,39 @@ class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	public void setStudents(Student[] student) {
+	public void setStudents(Student[] student) throws IllegalArgumentException{
 		// Add your implementation here
-        
+        if(student==null)
+            throw new IllegalArgumentException();
 		for(int i=0;i<student.length;i++)
 			students[i]=student[i];
 	}
 
 	@Override
-	public Student getStudent(int index)  {
+	public Student getStudent(int index)  throws IllegalArgumentException{
 		// Add your implementation here
 		if(index>=0&&index<students.length)
 			return students[index];
+        else
+           throw new IllegalArgumentException(); 
 	
 	}
 
 	@Override
-	public void setStudent(Student student, int index){  //tested
+	public void setStudent(Student student, int index) throws IllegalArgumentException{  //tested
 		// Add your implementation here
-      
+       if(student==null)
+           throw new IllegalArgumentException(); 
        if(index>=0&&index<students.length) 
 		 students[index]=student;
-    
+       else
+        throw new IllegalArgumentException(); 
 	}
 
 	@Override
-	public void addFirst(Student student){
-		
+	public void addFirst(Student student) throws IllegalArgumentException{
+		if(student==null)
+           throw new IllegalArgumentException(); 
         int i;
 		if(students.length==0)
 			students[0]=student;
@@ -62,9 +68,10 @@ class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	public void addLast(Student student) { //tested
+	public void addLast(Student student) throws IllegalArgumentException{ //tested
 		// Add your implementation here
-        
+        if(student==null)
+           throw new IllegalArgumentException(); 
         int i;
         Student a;
         for(i=0;i<students.length&&(a=this.getStudent(i))!=null;i++);
@@ -72,9 +79,12 @@ class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	public void add(Student student, int index) {
+	public void add(Student student, int index) throws IllegalArgumentException{
 		// Add your implementation here
-       
+        if(student==null)
+           throw new IllegalArgumentException(); 
+        if(index<0&&index>=students.length) 
+            throw new IllegalArgumentException(); 
         int len;
         Student a;
         for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
@@ -90,11 +100,12 @@ class StudentGroup implements StudentArrayOperation {
         }		
 	}
     @Override
-    public void remove(int index) 
+    public void remove(int index) throws IllegalArgumentException//tested
     {
         int len,i;
         Student a;
-        
+        if(index<0&&index>=students.length) 
+            throw new IllegalArgumentException(); 
         for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
         if(index==len-1)
            students[len-1]=null;
@@ -109,31 +120,33 @@ class StudentGroup implements StudentArrayOperation {
         
     }
 	@Override
-	public void remove(Student student) //tested
+	public void remove(Student student) throws IllegalArgumentException//tested
     {
         int i;
-       
+        if(student==null)
+           throw new IllegalArgumentException(); 
         for(i=0;i<students.length;i++){
             if(students[i].equals(student)){
                 this.remove(i);
                 return;
             }
         }
-        
+        throw new IllegalArgumentException("Student not exist");
     }
 	
 	@Override
-	public void removeFromIndex(int index) //tested
+	public void removeFromIndex(int index) throws IllegalArgumentException//tested
     {
         int len;
         Student a;
-        
+        if(index<0&&index>=students.length) 
+            throw new IllegalArgumentException(); 
         for(len=0;len<students.length&&(a=this.getStudent(len))!=null;len++);
         for(int i=index+1;i<len;i++)
             students[i]=null;
     }
 	@Override
-	public void removeFromElement(Student student) {//tested
+	public void removeFromElement(Student student) throws IllegalArgumentException//tested
     {
         
         for(int i=0;;i++){
