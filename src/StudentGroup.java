@@ -60,7 +60,6 @@ public class StudentGroup implements StudentArrayOperation {
 	}
 
 	@Override
-	@Override
 	public void addFirst(Student student) throws IllegalArgumentException{
 		if(student==null)
            throw new IllegalArgumentException(); 
