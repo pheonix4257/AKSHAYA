@@ -165,7 +165,7 @@ class StudentGroup implements StudentArrayOperation {
             throw new IllegalArgumentException(); 
         for(int i=0;i!=index;i++){
             this.remove(0);
-            System.out.println(i);
+         
         }
        
     }
